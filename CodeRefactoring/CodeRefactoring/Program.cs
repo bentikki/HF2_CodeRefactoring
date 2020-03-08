@@ -23,12 +23,19 @@ namespace CodeRefactoring
 
             //PingSender class to send pings. 
             PingSender pingSender = new PingSender();
-            string[] pingArray = pingSender.LocalPing();
+            PingAnswer ping = pingSender.LocalPing();
+            //PingAnswer ping = pingSender.Ping("8.8.8.8");
 
-            for (int i = 0; i < pingArray.Length; i++)
+            Console.WriteLine("Reply: " + ping.Reply);
+            if (ping.Success)
             {
-                Console.WriteLine(pingArray[i]); //Displays ping information.
+                Console.WriteLine("Address:         " + ping.Address);
+                Console.WriteLine("RoundTripTime:   " + ping.RoundTripTime);
+                Console.WriteLine("TTL:             " + ping.TTL);
+                Console.WriteLine("DontFragment:    " + ping.DontFragment);
+                Console.WriteLine("BufferSize:      " + ping.BufferSize);
             }
+
 
             Console.WriteLine("start");
             string t = GetIPInfo.HostnameFromIp("8.8.8.8");
@@ -49,7 +56,6 @@ namespace CodeRefactoring
                 Console.WriteLine("Dhcp Address ............................ : " + adress);
             }
 
-            Console.ReadKey();
 
             IPHostEntry hostInfo = Dns.GetHostEntry(Environment.MachineName);
 
